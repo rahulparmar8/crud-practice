@@ -1,7 +1,13 @@
-import express from "express";
+import express, { Router } from "express";
 import Student from "../controllers/student.js";
-const router = express.Router();
+const router = Router();
 
-router.get("/", Student.getAllDoc);
+const student = new Student();
+
+router.get("/", student.getAllDoc);
+router.post("/", student.createDoc);
+router.get("/edit/:id", student.editDoc);
+router.post("/update/:id", student.updateDocId);
+router.post("/delete/:id", student.deleteDocId);
 
 export default router;

@@ -15,9 +15,11 @@ const __dirname = dirname(__filename);
 // Database connection
 connectDB(DATABASE_URL);
 
+app.use(express.urlencoded({extended:false}))
+
 //set Template Enging
-app.use(express.static("dist"));
-app.use(express.static(path.join(__dirname, "dist/uploads")));
+app.use(express.static("views"));
+app.use(express.static(path.join(__dirname, "assets")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 

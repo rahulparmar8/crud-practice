@@ -1,0 +1,89 @@
+<%- include('assets/header') %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 mt-5">
+      <h2 class="alert alert-success text-center">Add New Student</h2>
+
+      <form method="POST">
+        <form>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Name</label>
+            <input
+            name="name"
+              type="text"
+              class="form-control"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="age" class="form-label"
+              >Age</label
+            >
+            <input
+            name="age"
+
+              type="text"
+              class="form-control"
+              id="exampleInputPassword1"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >Fees</label
+            >
+            <input
+            name="fees"
+              type="text"
+              class="form-control"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </form>
+    </div>
+
+    <div class="col-sm-6 mt-5">
+      <h2 class="alert alert-danger text-center">List Of Student</h2>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Fees</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <% data.forEach((item,i)=>{%>
+              <tr>
+                <td><%= i+1 %></td>
+                <td><%= item.name %></td>
+                <td><%= item.age %></td>
+                <td><%= item.fees %></td>
+                <td>
+                  <from action="/student/edit/<%= item._id %>" method="GET" class="d-inline">
+                    <button>
+                      <i class="fa fa-pen-square text-info"></i>
+                    </button>
+                  </from>
+                  <from action="/student/delete/<%= item._id %>" method="POST" class="d-inline">
+                    <button>
+                      <i class="fa fa-trash text-danger"></i>
+                    </button>
+                  </from>
+                  
+                </td>
+              </tr>
+              <% }) %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<%- include('assets/footer') %>
