@@ -8,6 +8,6 @@ router.get("/", student.getAllDoc);
 router.post("/", student.createDoc);
 router.get("/edit/:id", student.editDoc);
 router.post("/update/:id", student.updateDocId);
-router.post("/delete/:id", student.deleteDocId);
+router.get("/delete/:id", student.deleteDocId);
 
 export default router;

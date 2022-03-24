@@ -33,10 +33,10 @@ export default class Student {
 
   // Show Edit From with data
   editDoc = async (req, res) => {
-    console.log(req.params.id);
+    // console.log(req.params.id);
     try {
       const result = await StudentModel.findById(req.params.id);
-      console.log(result);
+      //console.log(result);
       res.render("edit", { data: result });
     } catch (error) {
       console.log(error);
