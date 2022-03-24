@@ -1,10 +1,22 @@
 import StudentModel from "../models/student.js";
+import { validationResult } from "express-validator";
 
 export default class Student {
   //Create Document
+
   createDoc = async (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     try {
+      const errors = validationResult(req);
+      console.log("errors: ", errors);
+      if (!errors.isEmpty()) {
+        const result = await StudentModel.find();
+        return res.render("index", {
+          bodyData: req.body,
+          alert: errors.array(),
+          data: result,
+        });
+      }
       const { name, age, fees } = req.body;
       const doc = new StudentModel({
         name: name,
@@ -25,7 +37,7 @@ export default class Student {
     try {
       const result = await StudentModel.find();
       //console.log(result);
-      res.render("index", { data: result });
+      res.render("index", { data: result, bodyData: undefined });
     } catch (error) {
       console.log(error);
     }

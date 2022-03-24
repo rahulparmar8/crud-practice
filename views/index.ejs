@@ -7,19 +7,22 @@
 
         <form method="POST">
           <form>
+            <% if(typeof alert != 'undefined') { %> <% alert.forEach(function(error) { %>
+              <div style="color: red"><%= error.msg %></div>
+              <% })} %>
             <div class="mb-3">
               <label for="name" class="form-label">Name</label>
-              <input id="name" name="name" type="text" class="form-control" autocomplete="off"/>
+              <input value="<%= bodyData && bodyData.name ? bodyData.name : '' %>" id="name" name="name" type="text" class="form-control" autocomplete="off" />
             </div>
             <div class="mb-3">
               <label for="age" class="form-label">Age</label>
-              <input id="age" name="age" type="text" class="form-control" autocomplete="off"/>
+              <input value="<%= bodyData && bodyData.age ? bodyData.age : '' %>" id="age" name="age" type="text" class="form-control" autocomplete="off"/>
             </div>
             <div class="mb-3">
               <label for="fees" class="form-label">Fees</label>
-              <input id="fees" name="fees" type="text" class="form-control" autocomplete="off" />
+              <input value="<%= bodyData && bodyData.fees ? bodyData.fees : '' %>" id="fees" name="fees" type="text" class="form-control" autocomplete="off" />
             </div>
-            <button  type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
           </form>
         </form>
       </div>

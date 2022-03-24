@@ -14,7 +14,7 @@ const __dirname = dirname(__filename);
 // Database connection
 connectDB(DATABASE_URL);
 
-
+// body parts middleware
 app.use(express.urlencoded({ extended: false }));
 
 //set Template Enging
