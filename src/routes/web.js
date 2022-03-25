@@ -6,9 +6,10 @@ const router = Router();
 
 const student = new Student();
 
-router.get("/", student.getAllDoc);
+router.get("/list", student.getAllDoc);
+router.get("/addname", student.getAddPAge);
 router.post(
-  "/",
+  "/addname",
   check("name", "Name is required. Please enter your response. ")
     .not()
     .isEmpty(),

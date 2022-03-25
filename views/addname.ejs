@@ -1,0 +1,60 @@
+<%- include('assets/navbar') %>
+ <%- include('assets/header') %>
+
+<div class="row" style="justify-content: center">
+  <div class="col-sm-6 mt-5">
+    <h2 class="alert alert-success text-center">Add New Student</h2>
+    <form method="POST">
+      <form>
+        <div class="mb-3">
+          <label for="name" class="form-label">Name</label>
+          <input
+            value="<%= bodyData && bodyData.name ? bodyData.name : '' %>"
+            id="name"
+            name="name"
+            type="text"
+            class="form-control"
+            autocomplete="off"
+          />
+        </div>
+        <% if(typeof alert !='undefined' ) { %> <% alert.forEach(function(error)
+        { %> <% if(error.param=='name' ){%>
+        <div style="color: red"><%= error.msg %></div>
+        <%} })} %>
+        <div class="mb-3">
+          <label for="age" class="form-label">Age</label>
+          <input
+            value="<%= bodyData && bodyData.age ? bodyData.age : '' %>"
+            id="age"
+            name="age"
+            type="text"
+            class="form-control"
+            autocomplete="off"
+          />
+          <% if(typeof alert !='undefined' ) { %> <%
+          alert.forEach(function(error) { %> <% if(error.param=='age' ){%>
+          <div style="color: red"><%= error.msg %></div>
+          <%} })} %>
+        </div>
+        <div class="mb-3">
+          <label for="fees" class="form-label">Fees</label>
+          <input
+            value="<%= bodyData && bodyData.fees ? bodyData.fees : '' %>"
+            id="fees"
+            name="fees"
+            type="text"
+            class="form-control"
+            autocomplete="off"
+          />
+          <% if(typeof alert !='undefined' ) { %> <%
+          alert.forEach(function(error) { %> <% if(error.param=='fees' ){%>
+          <div style="color: red"><%= error.msg %></div>
+          <%} })} %>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </form>
+  </div>
+</div>
+
+<%- include('assets/footer') %>

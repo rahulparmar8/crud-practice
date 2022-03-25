@@ -5,6 +5,7 @@ import web from "./src/routes/web.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import session from "express-session";
+
 const app = express();
 const port = 3001;
 const DATABASE_URL = "mongodb://localhost:27017/myapp";
