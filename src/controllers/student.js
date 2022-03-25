@@ -13,15 +13,12 @@ export default class Student {
         const result = await StudentModel.find();
         const message = req.session.message;
         req.session.message = undefined;
-        const message1 = req.session.message1;
-        req.session.message1 = undefined;
 
         return res.render("index", {
           bodyData: req.body,
           alert: errors.array(),
           data: result,
           message,
-          message1,
         });
       }
       const { name, age, fees } = req.body;
