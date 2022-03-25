@@ -3,18 +3,25 @@ import { validationResult } from "express-validator";
 
 export default class Student {
   //Create Document
-
   createDoc = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
+    // console.log(req.session.message);
     try {
       const errors = validationResult(req);
-      console.log("errors: ", errors);
+     // console.log("errors: ", errors);
       if (!errors.isEmpty()) {
         const result = await StudentModel.find();
+        const message = req.session.message;
+        req.session.message = undefined;
+        const message1 = req.session.message1;
+        req.session.message1 = undefined;
+
         return res.render("index", {
           bodyData: req.body,
           alert: errors.array(),
           data: result,
+          message,
+          message1,
         });
       }
       const { name, age, fees } = req.body;
@@ -26,7 +33,8 @@ export default class Student {
       // Saving document
       const result = await doc.save();
       //console.log(result);
-      res.redirect("/student");
+      req.session.message = "Successfully Saved :)";
+      return res.redirect("/student");
     } catch (error) {
       console.log(error);
     }
@@ -36,8 +44,14 @@ export default class Student {
   getAllDoc = async (req, res) => {
     try {
       const result = await StudentModel.find();
+      const message = req.session.message;
+      req.session.message = undefined;
       //console.log(result);
-      res.render("index", { data: result, bodyData: undefined });
+      res.render("index", {
+        data: result,
+        message,
+        bodyData: undefined,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +76,8 @@ export default class Student {
         req.params.id,
         req.body
       );
-      res.redirect("/student");
+      req.session.message = "Update Successfully.!";
+      return res.redirect("/student");
     } catch (error) {
       console.log(error);
     }
@@ -72,7 +87,8 @@ export default class Student {
   deleteDocId = async (req, res) => {
     try {
       const result = await StudentModel.findByIdAndDelete(req.params.id);
-      res.redirect("/student");
+      req.session.message = "Data deleted.!";
+      return res.redirect("/student");
     } catch (error) {
       console.log(error);
     }

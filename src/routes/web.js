@@ -18,9 +18,6 @@ router.post(
     check("fees", "Fees is required. Please enter your response. ")
     .not()
     .isEmpty(),
-    // check("submit", "Data successfully saved ")
-    // .not()
-    // .isEmpty(),
   student.createDoc
 );
 router.get("/edit/:id", student.editDoc);
