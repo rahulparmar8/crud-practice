@@ -4,6 +4,7 @@ import { validationResult } from "express-validator";
 export default class Student {
   //Add data
   getAddPAge = (req, res) => {
+    // console.log("Hello");
     res.render("addname", {
       bodyData: req.body,
     });
@@ -37,7 +38,7 @@ export default class Student {
       const result = await doc.save();
       //console.log(result);
       req.session.message = "Successfully Saved :)";
-      return res.redirect("/student/list");
+      return res.redirect("/student/list/1");
     } catch (error) {
       console.log(error);
     }
@@ -48,18 +49,35 @@ export default class Student {
     try {
       const perPage = 5;
       const page = req.params.page || 1;
-      const dataList = await StudentModel.find({})
-        .skip(perPage * page - perPage)
-        .limit(perPage);
-      const result = await StudentModel.find();
       const message = req.session.message;
       req.session.message = undefined;
+      await StudentModel.find({})
+        .skip(perPage * page - perPage)
+        .limit(perPage)
+        .exec(async function (err, products) {
+          await StudentModel.count().exec(function (err, count) {
+            if (err) return next(err);
+            return res.render("index", {
+              data: products,
+              current: page,
+              pages: Math.ceil(count / perPage),
+              message,
+              bodyData: undefined,
+            });
+          });
+        });
+      // const dataList = await StudentModel.find({})
+      //   .skip(perPage * page - perPage)
+      //   .limit(perPage);
+      // const result = await StudentModel.find();
+      // const message = req.session.message;
+      // req.session.message = undefined;
       //console.log(result);
-      res.render("index", {
-        data: dataList,
-        message,
-        bodyData: undefined,
-      });
+      // res.render("index", {
+      //   data: dataList,
+      //   message,
+      //   bodyData: undefined,
+      // });
     } catch (error) {
       console.log(error);
     }
@@ -85,7 +103,7 @@ export default class Student {
         req.body
       );
       req.session.message = "Update Successfully.!";
-      return res.redirect("/student/list");
+      return res.redirect("/student/list/1");
     } catch (error) {
       console.log(error);
     }
@@ -96,7 +114,7 @@ export default class Student {
     try {
       const result = await StudentModel.findByIdAndDelete(req.params.id);
       req.session.message = "Data deleted.!";
-      return res.redirect("/student/list");
+      return res.redirect("/student/list/1");
     } catch (error) {
       console.log(error);
     }
