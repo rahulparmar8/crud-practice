@@ -19,8 +19,8 @@ router.post(
     .isEmpty(),
   student.createDoc
 );
-router.get("/edit/:id", student.editDoc);
-router.post("/update/:id", student.updateDocId);
-router.get("/delete/:id", student.deleteDocId);
+router.get("/edit/:id/:current", student.editDoc);
+router.post("/update/:id/:current", student.updateDocId);
+router.get("/delete/:id/:current", student.deleteDocId);
 
 export default router;

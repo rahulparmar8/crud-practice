@@ -66,18 +66,6 @@ export default class Student {
             });
           });
         });
-      // const dataList = await StudentModel.find({})
-      //   .skip(perPage * page - perPage)
-      //   .limit(perPage);
-      // const result = await StudentModel.find();
-      // const message = req.session.message;
-      // req.session.message = undefined;
-      //console.log(result);
-      // res.render("index", {
-      //   data: dataList,
-      //   message,
-      //   bodyData: undefined,
-      // });
     } catch (error) {
       console.log(error);
     }
@@ -89,7 +77,8 @@ export default class Student {
     try {
       const result = await StudentModel.findById(req.params.id);
       //console.log(result);
-      res.render("edit", { data: result });
+      var current = req.params.current;
+      res.render("edit", { data: result, current: current });
     } catch (error) {
       console.log(error);
     }
@@ -102,8 +91,9 @@ export default class Student {
         req.params.id,
         req.body
       );
+      var current = req.params.current;
       req.session.message = "Update Successfully.!";
-      return res.redirect("/student/list/1");
+      return res.redirect("/student/list/" + current);
     } catch (error) {
       console.log(error);
     }
@@ -113,8 +103,9 @@ export default class Student {
   deleteDocId = async (req, res) => {
     try {
       const result = await StudentModel.findByIdAndDelete(req.params.id);
+      var current = req.params.current;
       req.session.message = "Data deleted.!";
-      return res.redirect("/student/list/1");
+      return res.redirect("/student/list/" + current);
     } catch (error) {
       console.log(error);
     }
