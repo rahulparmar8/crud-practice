@@ -1,5 +1,20 @@
 <%- include('assets/navbar') %> <%- include('assets/header') %>
 
+
+<% if(fail ){%>
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <%= fail %>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<%} %>
+
+<% if(success ){%>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= success %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <%} %>
+
 <div class="row" style="justify-content: center">
   <div class="col-sm-6 mt-5">
     <h2 class="alert alert-success text-center">Add New Student</h2>
@@ -49,6 +64,23 @@
         <div style="color: red"><%= error.msg %></div>
         <%} })} %>
       </div>
+
+      <div class="mb-3">
+        <label for="fees" class="form-label">MobNumber</label>
+        <input
+          value="<%= bodyData && bodyData.number ? bodyData.number : '' %>"
+          id="number"
+          name="number"
+          type="number"
+          class="form-control"
+          autocomplete="off"
+        />
+        <% if(typeof alert !='undefined' ) { %> <% alert.forEach(function(error)
+        { %> <% if(error.param=='number' ){%>
+        <div style="color: red"><%= error.msg %></div>
+        <%} })} %>
+      </div>
+
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>

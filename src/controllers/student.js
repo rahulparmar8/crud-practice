@@ -1,14 +1,29 @@
 import StudentModel from "../models/student.js";
 import { validationResult } from "express-validator";
 
+function regexPhoneNumber(str) {
+  const regexPhoneNumber = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+  if (str.match(regexPhoneNumber)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 export default class Student {
-  //Add data
+
+  //Add Data
   getAddPAge = (req, res) => {
+    var success = false;
+    var fail = false;
     // console.log("Hello");
     res.render("addname", {
       bodyData: req.body,
+      success: success,
+      fail: fail,
     });
   };
+
   //Create Document
   createDoc = async (req, res) => {
     // console.log(req.body);
@@ -28,21 +43,45 @@ export default class Student {
           message,
         });
       }
-      const { name, age, fees } = req.body;
-      const doc = new StudentModel({
-        name: name,
-        age: age,
-        fees: fees,
-      });
-      // Saving document
-      const result = await doc.save();
-      //console.log(result);
-      req.session.message = "Successfully Saved :)";
-      return res.redirect("/student/list/1");
+      const { name, age, fees, number } = req.body;
+      var checkPhone = regexPhoneNumber(number);
+      // console.log(checkPhone);
+      if (checkPhone) {
+        const doc = new StudentModel({
+          name: name,
+          age: age,
+          fees: fees,
+          number: number,
+        });
+        // Saving Document
+        const result = await doc.save();
+        //console.log(result);
+        // req.session.message = "Successfully Saved :)";
+        var success = "Successfully Saved :)";
+        var fail = false;
+        // return res.redirect("/student/addname");
+        return res.render("addname", {
+          bodyData: null,
+          success: success,
+          fail: fail,
+        });
+      } else {
+        // req.session.message = "Phone number must be 10 digits :)";
+        //  return res.redirect("/student/addname");
+        var fail = "Cude not save Phone number must be 10 digits :)";
+        var success = false;
+        // return res.redirect("/student/addname");
+        return res.render("addname", {
+          bodyData: req.body,
+          success: success,
+          fail: fail,
+        });
+      }
     } catch (error) {
       console.log(error);
     }
   };
+
 
   // Retrive all document
   getAllDoc = async (req, res) => {
@@ -71,6 +110,7 @@ export default class Student {
     }
   };
 
+
   // Show Edit From with data
   editDoc = async (req, res) => {
     // console.log(req.params.id);
@@ -83,6 +123,7 @@ export default class Student {
       console.log(error);
     }
   };
+
 
   //Update document
   updateDocId = async (req, res) => {
@@ -98,6 +139,7 @@ export default class Student {
       console.log(error);
     }
   };
+
 
   //Delete document
   deleteDocId = async (req, res) => {

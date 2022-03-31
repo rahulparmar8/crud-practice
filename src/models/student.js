@@ -7,6 +7,7 @@ const studentSchema = new mongoose.Schema({
   fees: {
     type: Number,
   },
+  number: { type:Number},
 });
 
 // Model

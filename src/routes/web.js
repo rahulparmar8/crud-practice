@@ -6,15 +6,19 @@ const router = Router();
 
 const student = new Student();
 
-router.get("/list/:page", student.getAllDoc);
 router.get("/addname", student.getAddPAge);
-router.post(
-  "/addname",
+router.get("/list/:page", student.getAllDoc);
+router.post("/addname",
   check("name", "Name is required. Please enter your response. ")
     .not()
     .isEmpty(),
-  check("age", "Age is required. Please enter your response. ").not().isEmpty(),
+  check("age", "Age is required. Please enter your response. ")
+    .not()
+    .isEmpty(),
   check("fees", "Fees is required. Please enter your response. ")
+    .not()
+    .isEmpty(),
+    check("number", "Number is required. Please enter your response. ")
     .not()
     .isEmpty(),
   student.createDoc
