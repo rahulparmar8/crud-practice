@@ -41,6 +41,8 @@ export default class Student {
           alert: errors.array(),
           data: result,
           message,
+          fail : undefined,
+          success: undefined
         });
       }
       const { name, age, fees, number } = req.body;

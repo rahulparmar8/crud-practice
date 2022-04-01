@@ -20,7 +20,10 @@ router.post("/addname",
     .isEmpty(),
     check("number", "Number is required. Please enter your response. ")
     .not()
-    .isEmpty(),
+    .isEmpty()
+    .isLength({min : 10})
+    .withMessage("Mobile num ber shouldb be of 10 digi")
+    ,
   student.createDoc
 );
 router.get("/edit/:id/:current", student.editDoc);
