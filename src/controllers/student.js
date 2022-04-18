@@ -11,7 +11,6 @@ function regexPhoneNumber(str) {
 }
 
 export default class Student {
-
   //Add Data
   getAddPAge = (req, res) => {
     var success = false;
@@ -41,8 +40,8 @@ export default class Student {
           alert: errors.array(),
           data: result,
           message,
-          fail : undefined,
-          success: undefined
+          fail: undefined,
+          success: undefined,
         });
       }
       const { name, age, fees, number } = req.body;
@@ -84,7 +83,6 @@ export default class Student {
     }
   };
 
-
   // Retrive all document
   getAllDoc = async (req, res) => {
     try {
@@ -112,7 +110,6 @@ export default class Student {
     }
   };
 
-
   // Show Edit From with data
   editDoc = async (req, res) => {
     // console.log(req.params.id);
@@ -125,7 +122,6 @@ export default class Student {
       console.log(error);
     }
   };
-
 
   //Update document
   updateDocId = async (req, res) => {
@@ -141,7 +137,6 @@ export default class Student {
       console.log(error);
     }
   };
-
 
   //Delete document
   deleteDocId = async (req, res) => {
